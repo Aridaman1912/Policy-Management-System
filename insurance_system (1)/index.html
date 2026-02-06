@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Insurance Claim Management System</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🛡️ Insurance Claim Management System</h1>
+      <h2>Developed by Aman & Aridaman Verma</h2>
+      <p>Manage Policyholders, Policies, Claims & Agents</p>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab-btn active" onclick="showTab('policyholders')">Policyholders</button>
+      <button class="tab-btn" onclick="showTab('policies')">Policies</button>
+      <button class="tab-btn" onclick="showTab('claims')">Claims</button>
+      <button class="tab-btn" onclick="showTab('agents')">Agents</button>
+    </nav>
+
+    <!-- Policyholders -->
+    <div id="policyholders" class="tab-content active">
+      <h2>Policyholders Management</h2>
+      <div class="form-section">
+        <h3>Add / Edit Policyholder</h3>
+        <form id="policyholderForm">
+          <input type="hidden" id="ph_edit_id"/>
+          <input type="text" id="ph_name" placeholder="Full Name" required>
+          <input type="date" id="ph_dob" placeholder="Date of Birth" required>
+          <input type="tel" id="ph_contact" placeholder="Contact (10 digits)" pattern="[0-9]{10}" required>
+          <input type="email" id="ph_email" placeholder="Email">
+          <input type="text" id="ph_address" placeholder="Address">
+          <button type="submit">Save</button>
+          <button type="button" id="ph_cancel_btn" style="display:none">Cancel Edit</button>
+        </form>
+      </div>
+      <div class="data-section">
+        <h3>All Policyholders</h3>
+        <div id="policyholdersTable"></div>
+      </div>
+    </div>
+
+    <!-- Policies -->
+    <div id="policies" class="tab-content">
+      <h2>Policies Management</h2>
+      <div class="form-section">
+        <h3>Add / Edit Policy</h3>
+        <form id="policyForm">
+          <input type="hidden" id="pol_edit_id"/>
+          <input type="number" id="pol_policyholder_id" placeholder="Policyholder ID" required>
+          <input type="number" id="pol_agent_id" placeholder="Agent ID">
+          <select id="pol_type" required>
+            <option value="">Select Policy Type</option>
+            <option value="Life">Life Insurance</option>
+            <option value="Health">Health Insurance</option>
+            <option value="Motor">Motor Insurance</option>
+            <option value="Home">Home Insurance</option>
+            <option value="Travel">Travel Insurance</option>
+          </select>
+          <input type="number" id="pol_premium" placeholder="Premium Amount" step="0.01" required>
+          <input type="number" id="pol_coverage" placeholder="Coverage Amount" step="0.01" required>
+          <input type="date" id="pol_start" placeholder="Start Date" required>
+          <input type="date" id="pol_end" placeholder="End Date" required>
+          <button type="submit">Save</button>
+          <button type="button" id="pol_cancel_btn" style="display:none">Cancel Edit</button>
+        </form>
+      </div>
+      <div class="data-section">
+        <h3>All Policies</h3>
+        <div id="policiesTable"></div>
+      </div>
+    </div>
+
+    <!-- Claims -->
+    <div id="claims" class="tab-content">
+      <h2>Claims Management</h2>
+      <div class="form-section">
+        <h3>File / Edit Claim</h3>
+        <form id="claimForm">
+          <input type="hidden" id="cl_edit_id"/>
+          <input type="number" id="cl_policy_id" placeholder="Policy ID" required>
+          <input type="date" id="cl_date" placeholder="Claim Date" required>
+          <input type="number" id="cl_amount" placeholder="Claim Amount" step="0.01" required>
+          <select id="cl_status">
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Settled">Settled</option>
+          </select>
+          <textarea id="cl_remarks" placeholder="Remarks" rows="3"></textarea>
+          <button type="submit">Save</button>
+          <button type="button" id="cl_cancel_btn" style="display:none">Cancel Edit</button>
+        </form>
+      </div>
+      <div class="data-section">
+        <h3>All Claims</h3>
+        <div class="filter-section">
+          <label>Filter by Status:</label>
+          <select id="claimStatusFilter" onchange="filterClaims()">
+            <option value="all">All Claims</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Settled">Settled</option>
+          </select>
+        </div>
+        <div id="claimsTable"></div>
+      </div>
+    </div>
+
+    <!-- Agents -->
+    <div id="agents" class="tab-content">
+      <h2>Agents Management</h2>
+      <div class="form-section">
+        <h3>Add / Edit Agent</h3>
+        <form id="agentForm">
+          <input type="hidden" id="ag_edit_id"/>
+          <input type="text" id="ag_name" placeholder="Agent Name" required>
+          <input type="tel" id="ag_phone" placeholder="Phone (10 digits)" pattern="[0-9]{10}" required>
+          <input type="email" id="ag_email" placeholder="Email">
+          <input type="number" id="ag_commission" placeholder="Commission Rate %" step="0.01" min="0" max="20" required>
+          <input type="date" id="ag_joining" placeholder="Joining Date" required>
+          <button type="submit">Save</button>
+          <button type="button" id="ag_cancel_btn" style="display:none">Cancel Edit</button>
+        </form>
+      </div>
+      <div class="data-section">
+        <h3>All Agents</h3>
+        <div id="agentsTable"></div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
